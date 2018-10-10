@@ -128,6 +128,40 @@ function ready(datapoints) {
         .attr('cy', 0)
         .lower()
 
+      svg
+        .append('text')
+        .attr('font-weight', '600')
+        .attr('text-anchor', 'middle')
+        .attr('font-size', 25)
+        .attr('alignment-baseline', 'middle')
+        .text(d => eachPlayer.Name)
+        .attr('y', -radiusScale(1) - 60)
+      // console.log(eachPlayer)
+
+      let longTeamNames = {
+        CLE: 'Cleveland Cavaliers',
+        GSW: 'Golden State Warriors',
+        SAS: 'San Antonio Spurs',
+        MIN: 'Minnesota Timberwolves',
+        MIL: 'Milwaukee Bucks',
+        PHI: 'Philadelphia 76ers',
+        OKC: 'Oklahoma City Thunder',
+        NOP: 'New Orleans Pelicans',
+        HOU: 'Houston Rockets'
+      }
+
+      svg
+        .append('text')
+        .attr('font-weight', '600')
+        .attr('text-anchor', 'middle')
+        .attr('font-size', 15)
+        .attr('alignment-baseline', 'middle')
+        .text(d => {
+          var shortTeamName = eachPlayer.Team
+          return longTeamNames[shortTeamName]
+        })
+        .attr('y', -radiusScale(1) - 40)
+
       d3.selectAll(`.${playerId}-scale-band`).each(function(percentage, i) {
         // console.log(percentage)
         svg
@@ -148,40 +182,6 @@ function ready(datapoints) {
             let rotation = (a / Math.PI) * 180
             return `translate(${xPosition}, ${yPosition})rotate(${rotation})`
           })
-
-        svg
-          .append('text')
-          .attr('font-weight', '600')
-          .attr('text-anchor', 'middle')
-          .attr('font-size', 25)
-          .attr('alignment-baseline', 'middle')
-          .text(d => eachPlayer.Name)
-          .attr('y', -radiusScale(1) - 60)
-        // console.log(eachPlayer)
-
-        let longTeamNames = {
-          CLE: 'Cleveland Cavaliers',
-          GSW: 'Golden State Warriors',
-          SAS: 'San Antonio Spurs',
-          MIN: 'Minnesota Timberwolves',
-          MIL: 'Milwaukee Bucks',
-          PHI: 'Philadelphia 76ers',
-          OKC: 'Oklahoma City Thunder',
-          NOP: 'New Orleans Pelicans',
-          HOU: 'Houston Rockets'
-        }
-
-        svg
-          .append('text')
-          .attr('font-weight', '600')
-          .attr('text-anchor', 'middle')
-          .attr('font-size', 15)
-          .attr('alignment-baseline', 'middle')
-          .text(d => {
-            var shortTeamName = eachPlayer.Team
-            return longTeamNames[shortTeamName]
-          })
-          .attr('y', -radiusScale(1) - 40)
       })
     })
 }
